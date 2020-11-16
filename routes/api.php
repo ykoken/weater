@@ -17,6 +17,10 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('register',  'Api\AuthController@register');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function() {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('info', 'Api\UserController@show');
+        Route::put('update', 'Api\UserController@update');
+
+    });
 });
