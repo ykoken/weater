@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         $user_id = Auth::user()->id;
         if ($user_id) {
-            $user = User::find($user_id);
+            $user = $this->user->getInfo($user_id);
             if ($user) {
                 return response()->json($user);
             }
@@ -58,7 +58,7 @@ class UserController extends Controller
     public function update()
     {
         $data = $this->request->only(
-            ['id','name', 'email','password','mobile_number', 'profile_url', 'city', 'timezone', 'language', 'device_system', 'notification']);
+            ['id', 'name', 'email', 'password', 'mobile_number', 'profile_url', 'city', 'timezone', 'language', 'device_system', 'notification']);
         try {
             $user = $this->user->updateUser($data);
         } catch (RepositoryException $re) {
@@ -73,14 +73,4 @@ class UserController extends Controller
             ->ok();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

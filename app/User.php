@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Models\CampaignCode;
+use App\Models\UserCampaignRelation;
+use App\Models\UserFavorites;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,4 +40,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function promotionCode()
+    {
+          return $this->hasOne(UserCampaignRelation::class, 'user_id', 'id');
+    }
+    public function favorites()
+    {
+        return $this->hasMany(UserFavorites::class, 'user_id', 'id');
+    }
 }

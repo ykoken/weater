@@ -16,7 +16,7 @@ class CitiesWeater extends Seeder
             DB::table('cities_weater')
                 ->insert([
                     'city_name' => $facker->city,
-                    'weater' => $facker->numberBetween(0,2),
+                    'weater' => $facker->numberBetween(1,40),
                     'created_at' => $facker->date(now()),
                     'updated_at' => $facker->date(now()),
                 ]);

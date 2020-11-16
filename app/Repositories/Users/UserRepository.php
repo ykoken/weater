@@ -12,6 +12,14 @@ use App\Repositories\BaseRepository;
 class UserRepository extends BaseRepository
 {
 
+    public function getInfo($user_id)
+    {
+        return User::where('id', $user_id)
+            ->with('promotionCode')
+            ->with('favorites')
+            ->first();
+    }
+
     public function updateUser($data)
     {
         DB::beginTransaction();
@@ -21,8 +29,8 @@ class UserRepository extends BaseRepository
             // Check the user
             if (!$user) {
                 throw new RepositoryException(ResponseStatus::BAD_REQUEST, 'USER_NOT_FOUND');
-            }else{
-                $data =[
+            } else {
+                $data = [
                     'id' => $data['id'],
                     'name' => $data['name'],
                     'email' => preg_replace('/\s+/', '', strtolower($data['email'])),
@@ -30,13 +38,13 @@ class UserRepository extends BaseRepository
                     'mobile_number' => $data['mobile_number'],
                     'profile_url' => isset($data['file']) ? $data['file']->store('avatar', 'public') : null,
                     'timezone' => $data['timezone'],
-                    'language' =>  $data['language'],
-                    'device_system'=> $data['device_system'],
+                    'language' => $data['language'],
+                    'device_system' => $data['device_system'],
                     'notification' => $data['notification']
                 ];
             }
 
-            $user->where('id',$data['id'])->update($data);
+            $user->where('id', $data['id'])->update($data);
 
             DB::commit();
             return $user;
