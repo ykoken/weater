@@ -61,16 +61,17 @@ class UserController extends Controller
             ['id', 'name', 'email', 'password', 'mobile_number', 'profile_url', 'city', 'timezone', 'language', 'device_system', 'notification']);
         try {
             $user = $this->user->updateUser($data);
+
+            return $this->response
+                ->message('success', 'USER_UPDATED')
+                ->result('user', $user)
+                ->ok();
         } catch (RepositoryException $re) {
             return $this->response
                 ->message('error', $re->getMessage())
                 ->get($re->getStatusCode());
         }
 
-        return $this->response
-            ->message('success', 'USER_UPDATED')
-            ->result('user', $user)
-            ->ok();
     }
 
 }

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Requests\Campaigns;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CampaignRequest extends FormRequest
@@ -28,7 +29,5 @@ class CampaignRequest extends FormRequest
           'user_id'       => 'required|unique:user_campaigns,user_id',
           'campaign_code' => 'required|unique:user_campaigns,campaign_code',
         ];
-
-
-    }
+    } 
 }

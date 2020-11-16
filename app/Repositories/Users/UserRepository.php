@@ -37,6 +37,7 @@ class UserRepository extends BaseRepository
                     'password' => \Hash::make($data['password']),
                     'mobile_number' => $data['mobile_number'],
                     'profile_url' => isset($data['file']) ? $data['file']->store('avatar', 'public') : null,
+                    'city' => $data['city'],
                     'timezone' => $data['timezone'],
                     'language' => $data['language'],
                     'device_system' => $data['device_system'],

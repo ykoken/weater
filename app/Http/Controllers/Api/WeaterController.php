@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\RepositoryException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Weaters\WeaterRequest;
 use App\Repositories\Weater\WeaterRepository;
 use App\Services\Response\ResponseHandler;
 use App\Services\Response\ResponseStatus;
@@ -67,8 +68,9 @@ class WeaterController extends Controller
                 ->get($re->getStatusCode());
         }
     }
-    public function addUserFavorites()
+    public function addUserFavorites(WeaterRequest $request)
     {
+        $validated = $request->validated();
         $data = [
             'user_id' => Auth::id(),
             'city_id' => $this->request->get('city_id')
