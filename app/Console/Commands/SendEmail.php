@@ -43,17 +43,23 @@ class SendEmail extends Command
      */
     public function handle()
     {
-        $getUsers = User::with('favorites')->get();
-        foreach ($getUsers as $getUser) {
-            if (!empty($getUser->favorites)){
-                foreach ($getUser->favorites as $favorite) {
-                    $getCityWeater = Weater::where('id',$favorite->city_id)->first();
-                    Mail::queue(new WeaterSendEmail($getUser->email,$getCityWeater));
-                    EmailJob::dispatch($getUser->mobile_number, $getCityWeater);
+        try {
+            $getUsers = User::with('favorites')->get();
+            foreach ($getUsers as $getUser) {
+                if (!empty($getUser->favorites)) {
+                    foreach ($getUser->favorites as $favorite) {
+                        $getCityWeater = Weater::where('id', $favorite->city_id)->first();
+                        Mail::queue(new WeaterSendEmail($getUser->email, $getCityWeater));
+                        EmailJob::dispatch($getUser->mobile_number, $getCityWeater);
+                    }
                 }
             }
-        }
 
+            $this->info('Email and Notification Pushed');
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
+            \Log::error($e);
+        }
 
 
     }
