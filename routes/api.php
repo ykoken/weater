@@ -34,4 +34,14 @@ Route::middleware('auth:api')->group(function () {
     });
 
 
+    //weater routes
+    Route::group(['prefix' => 'weater'], function () {
+        Route::get('/', 'Api\WeaterController@index');
+        Route::get('/city/{id}', 'Api\WeaterController@getCity');
+        Route::get('/user', 'Api\WeaterController@getUserFavorites');
+        Route::post('/user', 'Api\WeaterController@addUserFavorites');
+        Route::delete('/user/delete/{id}', 'Api\WeaterController@removeUserFavorites');
+
+    });
+
 });

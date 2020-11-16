@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\RepositoryException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Campaigns\CampaignRelationRequest;
 use App\Http\Requests\Campaigns\CampaignRequest;
 use App\Models\CampaignCode;
 use App\Models\UserCampaignRelation;
@@ -12,7 +11,6 @@ use App\Repositories\Campaign\CampaignRepository;
 use App\Services\Response\ResponseHandler;
 use App\Services\Response\ResponseStatus;
 use App\User;
-use CampaignCodes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,15 +42,14 @@ class CampaignController extends Controller
     {
         try {
             $user = $this->campaign->getAll();
+            return $this->response
+                ->result('user', $user)
+                ->ok();
         } catch (RepositoryException $re) {
             return $this->response
                 ->message('error', $re->getMessage())
                 ->get($re->getStatusCode());
         }
-
-        return $this->response
-            ->result('user', $user)
-            ->ok();
     }
 
     public function addCampaignCode(CampaignRequest $request)
