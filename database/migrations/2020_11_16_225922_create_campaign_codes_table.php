@@ -16,8 +16,8 @@ class CreateCampaignCodesTable extends Migration
         Schema::create('campaign_codes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
