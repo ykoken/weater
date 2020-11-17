@@ -33,7 +33,7 @@ finally run the following command to seed the database with dummy content.
 ##### User
 * User Login POST `http://localhost:8000/api/login`
 * User Register POST `http://localhost:8000/api/register`
-* User Logout POST `http://localhost:8000/api/register`
+* User Logout POST `http://localhost:8000/api/logout`
 * User Info GET `http://localhost:8000/api/info`
 * User Update PUT `http://localhost:8000/api/update`
 ##### Campaign
