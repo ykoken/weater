@@ -3,14 +3,16 @@
 namespace App\Console\Commands;
 
 use App\Jobs\EmailJob;
+use App\Jobs\SendPushNotification;
 use App\Mail\WeaterSendEmail;
 use App\Models\Weater;
+use App\Notifications\WeaterNotification;
 use App\User;
 use Illuminate\Queue\Jobs\Job;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmail extends Command
+class SendNotificationAndEmail extends Command
 {
     /**
      * The name and signature of the console command.
@@ -49,8 +51,8 @@ class SendEmail extends Command
                 if (!empty($getUser->favorites)) {
                     foreach ($getUser->favorites as $favorite) {
                         $getCityWeater = Weater::where('id', $favorite->city_id)->first();
-                        Mail::queue(new WeaterSendEmail($getUser->email, $getCityWeater));
                         EmailJob::dispatch($getUser->mobile_number, $getCityWeater);
+                        $getUser->notify(new WeaterNotification($getUser->mobile_number, $getCityWeater));
                     }
                 }
             }

@@ -34,6 +34,6 @@ class WeaterSendEmail extends Mailable
             ->subject('Your Favorite City Weater')
             ->to($this->email)
             ->with(['data'=> $this->data])
-            ->view('emails.welcome');;
+            ->view('emails.weater');
     }
 }
