@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile_number')->default(0);
             $table->text('profile_url')->nullable();
             $table->integer('city')->default(0);
-            $table->string('timezone');
+            $table->string('timezone')->nullable();
             $table->string('language')->nullable();
             $table->string('device_system')->nullable();
             $table->boolean('notification')->default(true);
