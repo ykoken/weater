@@ -19,7 +19,7 @@ class SendNotificationAndEmail extends Command
      *
      * @var string
      */
-    protected $signature = 'email:send';
+    protected $signature = 'notification:send';
 
     /**
      * The console command description.
